@@ -39,9 +39,8 @@ async def weather_report(message: Message):
     weather_report = (
         f"Погода в городе {city_name}:\n"
         f"Температура: {temperature}°C\n"
-        f"Описание: {description}\n"
-
-    )
+        f"Описание: {description}"
+           )
 
     await message.answer(weather_report)
 # Запуск бота
