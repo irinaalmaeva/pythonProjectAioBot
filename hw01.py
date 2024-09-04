@@ -1,20 +1,20 @@
-import asyncio
+
 from aiogram import Bot, Dispatcher,F
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 import requests
 
 
-from config import TOKEN
-from config import API_KEY
+from config import TOKEN, API_KEY
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 def get_weather(city: str, api_key: str) -> dict:
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
     response = requests.get(url)
     return response.json()
+
 
 # Обработчик команды /start
 @dp.message(CommandStart())
@@ -34,19 +34,16 @@ async def weather_report(message: Message):
     city_name = weather_data["name"]
     temperature = weather_data["main"]["temp"]
     description = weather_data["weather"][0]["description"].capitalize()
-    humidity = weather_data["main"]["humidity"]
-    wind_speed = weather_data["wind"]["speed"]
+
 
     weather_report = (
         f"Погода в городе {city_name}:\n"
         f"Температура: {temperature}°C\n"
         f"Описание: {description}\n"
-        f"Влажность: {humidity}%\n"
-        f"Скорость ветра: {wind_speed} м/с"
+
     )
 
     await message.answer(weather_report)
-
 # Запуск бота
 async def main():
     await dp.start_polling(bot)
