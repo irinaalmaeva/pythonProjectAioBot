@@ -10,16 +10,17 @@ from config import TOKEN, API_KEY
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
+
 def get_weather(city: str, api_key: str) -> dict:
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
     response = requests.get(url)
     return response.json()
 
-
 # Обработчик команды /start
 @dp.message(CommandStart())
 async def start(message: Message):
     await message.answer("Привет! Отправь мне название города, и я покажу тебе текущую погоду.")
+
 
 # Обработчик текстовых сообщений для получения прогноза погоды
 @dp.message(F.text)
