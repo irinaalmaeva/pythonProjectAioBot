@@ -4,7 +4,6 @@ from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 
 from config import TOKEN
-
 import random
 
 bot = Bot(token=TOKEN)
